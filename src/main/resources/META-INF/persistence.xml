@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="default">
+    <properties>
+      <!-- jbdc es el protocolo de java para la comunicación con las BBDD -->
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernate"/>
+      <property name="javax.persistence.jdbc.user" value="nuhazet"/>
+      <property name="javax.persistence.jdbc.password" value="123456"/>
+      <!-- driver se busca en external libraries, las librerías se generan en dependencies del pom-->
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- validate(comprobar BBDD error: no compila), create: crea la BBDD, update: crea y actualización lazy -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>
