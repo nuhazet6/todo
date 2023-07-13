@@ -2,6 +2,7 @@ package org.nuhaempresario.model.dao;
 
 import jakarta.persistence.EntityManager;
 import org.nuhaempresario.model.Todo;
+import org.nuhaempresario.model.TodoState;
 import org.nuhaempresario.model.User;
 import org.nuhaempresario.utils.EntityManagerHelper;
 
@@ -47,6 +48,8 @@ public class TodoDao implements Dao<Todo,Long>{
         updated.setTitle(title);
         String content = entity.getContent() != null ? entity.getContent() : updated.getContent();
         updated.setContent(content);
+        TodoState status = entity.getStatus() != null ? entity.getStatus() : updated.getStatus();
+        updated.setStatus(status);
         User user = entity.getUser() != null ? entity.getUser() : updated.getUser();
         updated.setUser(user);
 
