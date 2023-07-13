@@ -2,6 +2,7 @@ package org.nuhaempresario.model.dao;
 
 import jakarta.persistence.EntityManager;
 import org.nuhaempresario.model.Todo;
+import org.nuhaempresario.model.User;
 import org.nuhaempresario.utils.EntityManagerHelper;
 
 import java.sql.PreparedStatement;
@@ -42,19 +43,13 @@ public class TodoDao implements Dao<Todo,Long>{
     @Override
     public Todo update(Long id, Todo entity) {
         Todo updated = findOne(id);
-        String title = entity.getTitle();
-        if(title != null){
-            updated.setTitle(title);
-        }
-        if (entity.getContent() != null){
-            updated.setContent(entity.getContent());
-        }
-        if(entity.getStatus() != null){
-            updated.setStatus(entity.getStatus());
-        }
-        if(entity.getUser() != null){
-            updated.setUser(entity.getUser());
-        }
+        String title = entity.getTitle() != null ? entity.getTitle() : updated.getTitle();
+        updated.setTitle(title);
+        String content = entity.getContent() != null ? entity.getContent() : updated.getContent();
+        updated.setContent(content);
+        User user = entity.getUser() != null ? entity.getUser() : updated.getUser();
+        updated.setUser(user);
+
         try {
             manager.getTransaction().begin();
             manager.persist(updated);
