@@ -15,6 +15,7 @@ public class TodoDao implements Dao<Todo,Long>{
 
     @Override
     public Todo create(Todo entity) {
+
         try {
            manager.getTransaction().begin();
            manager.persist(entity);
