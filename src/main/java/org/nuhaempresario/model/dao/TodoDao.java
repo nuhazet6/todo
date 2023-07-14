@@ -34,17 +34,9 @@ public class TodoDao implements Dao<Todo,Long>{
         return manager.createQuery("select t from Todo t",Todo.class).getResultList();
     }
 
-    /*
-         Cuanto más descriptivo sea el identificador de un método o atributo, menos van a tener que "computar"
-         mentalmente tus compañeros cuando tengan que leer el método; en el caso de los atributos de clase, se clarifica
-         la intencionalidad referida a dicho atributo.
-    */
     @Override
     public Todo findOneById(Long id) {
-        return manager
-                .createQuery("select t from Todo t where t.id = :id",Todo.class)
-                .setParameter("id",id)
-                .getSingleResult();
+        return manager.createQuery("select t from Todo t where t.id = :id",Todo.class).setParameter("id",id).getSingleResult();
     }
 
     @Override
@@ -72,6 +64,8 @@ public class TodoDao implements Dao<Todo,Long>{
 
     @Override
     public void remove(Long id) {
-
+        Todo delete = findOneById(id);
+        manager.remove(delete);
+        manager.flush();
     }
 }
