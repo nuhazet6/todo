@@ -6,8 +6,6 @@ import org.nuhaempresario.model.TodoState;
 import org.nuhaempresario.model.User;
 import org.nuhaempresario.utils.EntityManagerHelper;
 
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TodoDao implements Dao<Todo,Long>{
@@ -36,14 +34,22 @@ public class TodoDao implements Dao<Todo,Long>{
         return manager.createQuery("select t from Todo t",Todo.class).getResultList();
     }
 
+    /*
+         Cuanto más descriptivo sea el identificador de un método o atributo, menos van a tener que "computar"
+         mentalmente tus compañeros cuando tengan que leer el método; en el caso de los atributos de clase, se clarifica
+         la intencionalidad referida a dicho atributo.
+    */
     @Override
-    public Todo findOne(Long id) {
-        return manager.createQuery("select t from Todo t where t.id = :id",Todo.class).setParameter("id",id).getSingleResult();
+    public Todo findOneById(Long id) {
+        return manager
+                .createQuery("select t from Todo t where t.id = :id",Todo.class)
+                .setParameter("id",id)
+                .getSingleResult();
     }
 
     @Override
     public Todo update(Long id, Todo entity) {
-        Todo updated = findOne(id);
+        Todo updated = findOneById(id);
         String title = entity.getTitle() != null ? entity.getTitle() : updated.getTitle();
         updated.setTitle(title);
         String content = entity.getContent() != null ? entity.getContent() : updated.getContent();
