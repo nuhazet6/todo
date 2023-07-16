@@ -42,6 +42,8 @@ public class UserDao implements Dao<User,Long> {
         User updated = findOneById(id);
         String password = entity.getPassword() != null ? entity.getPassword()  : updated.getPassword() ;
         updated.setPassword(password);
+        String username = entity.getUsername() != null ? entity.getUsername() : updated.getUsername();
+        updated.setUsername(username);
 
         try {
             manager.getTransaction().begin();
