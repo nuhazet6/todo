@@ -16,7 +16,7 @@ public class TodoDao implements Dao<Todo,Long>{
     }
 
     @Override
-    public Todo create(Todo entity) {
+    public Todo create(Todo entity) throws RuntimeException {
 
         try {
            manager.getTransaction().begin();
@@ -25,7 +25,7 @@ public class TodoDao implements Dao<Todo,Long>{
            return entity;
         }catch (Exception e){
             manager.getTransaction().rollback();
-            return null;
+            throw new RuntimeException(e.getMessage());
         }
     }
 

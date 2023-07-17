@@ -15,7 +15,7 @@ public class UserDao implements Dao<User,Long> {
         manager = EntityManagerHelper.getInstance().getManager();
     }
     @Override
-    public User create(User entity) {
+    public User create(User entity) throws RuntimeException {
         try {
             manager.getTransaction().begin();
             manager.persist(entity);
@@ -23,7 +23,7 @@ public class UserDao implements Dao<User,Long> {
             return entity;
         }catch (Exception e){
             manager.getTransaction().rollback();
-            return null;
+            throw new RuntimeException(e.getMessage());
         }
     }
 
